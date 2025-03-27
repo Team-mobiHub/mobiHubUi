@@ -1,0 +1,94 @@
+@use '@angular/material' as mat;
+
+$picturesize : 150px;
+$upper-div-width : 60%;
+$error-color: #fe3535;
+
+.content-section {
+    min-width: 300px; /* Ensures mobile-friendliness */
+    max-width: 1200px; /* Prevents overly wide content */
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px;
+}
+
+.edit-user-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-picture-block {
+    display: inline-flex;
+    width: 100%
+}
+
+.profile-picture {
+    width: calc($picturesize - 30px);
+    aspect-ratio: 1 / 1;
+    object-fit: contain;   
+}
+
+.picture {
+    max-width: $picturesize;
+    min-width: 150px;
+    display: inline-block;
+    text-align: center;
+}
+
+.edit-picture-icon {
+    vertical-align: middle;
+}
+
+.user-info {
+    min-width:80%;
+    margin-left: 30px
+}
+
+.edit-user-form {
+    margin : 15px;
+    width : 100%;
+}
+.edit-user-form-field {
+    margin: 15px 0;
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;  
+    justify-content: flex-end; 
+    gap: 10px; 
+}
+
+.separator {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.further-settings {
+    width: 100%;
+}
+
+.delete-user-button {
+    @include mat.button-overrides((
+    filled-container-color: rgb(208, 27, 27),
+  ));
+}
+
+.edit-user-error-message {
+    margin-top: 0px;
+    color: red;
+}
+
+.further-settings-buttons {
+    display: flex;
+    gap: 10px;
+}

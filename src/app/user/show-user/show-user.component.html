@@ -1,0 +1,84 @@
+<div class="view-user-background-container" xmlns="http://www.w3.org/1999/html">
+  <div class="view-user-container" *ngIf="userFound; else errorTemplate">
+    <div class="user-info-container">
+      <img [src]="profilePictureURL || DEFAULT_PICTURE" class="profile-picture" alt="Profile-Picture" data-cy="profile-picture">
+      <p><b data-cy="username">{{ userName }}</b><br>is part of {{(teamDTOs |async)?.length}} teams</p>
+      <button mat-flat-button class="user-view-button" *ngIf="hasEditRights" [routerLink]="editUserRoute" data-cy="edit-profile-button">
+        <mat-icon>edit</mat-icon> Edit Profile
+      </button>
+    </div>
+
+    <!-- Comment out this code when implementing the teams feature
+    <div>
+      <button mat-flat-button class="user-view-button" *ngIf="hasEditRights" [routerLink]="createTeamRoute">
+        <mat-icon>add</mat-icon> Create Team
+      </button>
+    </div>
+
+    <div class="team-list-container">
+      <ul *ngIf="(teamDTOs | async)?.length != 0; else noTeamsTemplate">
+        <ng-container *ngFor="let team of (teamDTOs | async); let i = index">
+          <li [class.hidden]="!(showMoreTeamsToggle || i < 2)">
+
+            <img [src]="team.profilePictureLink" [alt]="'Team-Profile-Picture' + team.id"
+              [routerLink]="teamRoute + '/' + team.id">
+            {{ team.name }}
+          </li>
+        </ng-container>
+      </ul>
+      <ng-template #noTeamsTemplate>
+        <p>We can't find any teams that you are part of</p>
+        <span *ngIf="teamsFindingError.length != 0">Error code: {{ teamsFindingError }}</span>
+      </ng-template>
+    </div>
+
+    <div>
+      <button class="more-teams-button" (click)="onShowMoreTeamsToggleButtonClick()">
+        <mat-icon>{{ showMoreTeamsToggle ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </div>-->
+
+    <h1 class="traffic-model-list-heading">Traffic Models</h1>
+
+    <div class="traffic-model-list-button-container">
+      <mat-button-toggle-group *ngIf="hasEditRights"
+          aria-label="Choose traffic model filter type" [hideSingleSelectionIndicator]="true">
+        <mat-button-toggle (change)="onShowPublicButtonClick()" checked data-cy="show-public-tm-button">
+          <mat-icon>lock_open</mat-icon> Public
+        </mat-button-toggle>
+        <mat-button-toggle (change)="onShowPrivateButtonClick()" data-cy="show-private-tm-button">
+          <mat-icon>lock_outline</mat-icon> Private
+        </mat-button-toggle>
+        <mat-button-toggle (change)="onShowFavouriteButtonClick()" data-cy="show-favorite-tm-button">
+          <mat-icon>favorite_outline</mat-icon> Favorites
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="traffic-model-list-container">
+      <ng-container *ngIf="!isLoading; else loading">
+        <mh-traffic-model-list [trafficModels]="trafficModelsToShow"></mh-traffic-model-list>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-template #errorTemplate>
+    <div class="error-container">
+      <h1>User not found</h1>
+      <p>We can't find the User you are looking for</p>
+      <span *ngIf="userFindingError.length != 0">Error code: {{userFindingError}}</span>
+      <div class="error-buttons-container">
+        <button mat-flat-button class="user-view-button" (click)="onBackButtonClick()">
+          <mat-icon>arrow_back</mat-icon> Go Back
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #loading>
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading...</p>
+  </div>
+</ng-template>

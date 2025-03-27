@@ -1,0 +1,90 @@
+<div class="edit-user-background">
+    <div class="content-section">
+
+        <!-- div for showing picture and Username-->
+        <div class="name-picture-block">
+            <div class="picture">
+                <img [src]="this.profilePictureToUpload ? 'data:image;base64,' + this.arrayBufferToBase64(this.profilePictureToUpload) : this.user?.profilePictureLink"
+                    class="profile-picture">
+
+                <input type="file" accept="image/png, image/jpeg" style="display: none;" #fileInput
+                    (change)="onFileSelected($event)" data-cy="edit-profile-picture-input">
+                <button mat-stroked-button class="button-with-icon" (click)="fileInput.click()">
+                    <mat-icon aria-hidden="false" fontIcon="edit" class="edit-picture-icon"></mat-icon>
+                    Edit Picture
+                </button>
+            </div>
+            <div class="user-info">
+                <p><strong>{{this.user?.name}}</strong></p>
+            </div>
+        </div>
+
+        <!-- edit form -->
+        <form *ngIf="editUserForm" [formGroup]="editUserForm" (ngSubmit)="onSubmit()" class="edit-user-form">
+            <!-- Username field -->
+            <mat-form-field class="edit-user-form-field" appearance="outline" subscriptSizing="dynamic">
+                <mat-label>Username</mat-label>
+                <input type="text" matInput formControlName="username" data-cy="edit-username-field">
+
+                <mat-error *ngIf="editUserForm.get('username')?.hasError('required')" data-cy="username-required-error">
+                    Username is required
+                </mat-error>
+                <mat-error *ngIf="editUserForm.get('username')?.hasError('minlength')" data-cy="username-min-length-error">
+                    Username is too short
+                </mat-error>
+                <mat-error *ngIf="editUserForm.get('username')?.hasError('maxlength')" data-cy="username-max-length-error">
+                    Username is too long
+                </mat-error>
+                <mat-error *ngIf="editUserForm.get('username')?.hasError('usernameInUse')" data-cy="username-in-use-error">
+                    Username is already taken
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Email field -->
+            <mat-form-field class="edit-user-form-field" appearance="outline" subscriptSizing="dynamic">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" data-cy="edit-email-field">
+
+                <mat-error *ngIf="editUserForm.get('email')?.hasError('required')" data-cy="email-required-error">
+                    Email is required
+                </mat-error>
+                <mat-error *ngIf="editUserForm.get('email')?.hasError(validatorErrorKeys.emailPattern)" data-cy="email-pattern-error">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="editUserForm.get('email')?.hasError('maxlength')" data-cy="email-max-length-error">
+                    Email is too long
+                </mat-error>
+                <mat-error *ngIf="editUserForm.get('email')?.hasError('emailInUse')" data-cy="email-in-use-error">
+                    An Account with this email address already exists. Please sign in or reset your password
+                </mat-error>
+            </mat-form-field>
+
+            <p class="edit-user-error-message" *ngIf="errorStates.profilePictureTooLargeError">The selected file size must be less than {{errorStates.profilePictureTooLargeError}} {{profilePictureSize.SIZE_SUFFIX}}.</p>
+            <p class="edit-user-error-message" *ngIf="errorStates.invalidPictureFileType">The selected file is not a .png or .jpeg file.</p>
+            <p class="edit-user-error-message" *ngIf="errorStates.pictureUploadError">An error occurred while uploading your profile
+                picture.</p>
+            <p class="edit-user-error-message" *ngIf="errorStates.fatalUpdateError">An error occurred while submiting the edit form.
+                Please try again later.</p>
+            <div class="buttons">
+                <button mat-stroked-button id="cancel-edit-button" type="button" [routerLink]="'/user/' + this.user?.id"
+                    [disabled]="isEditUserFormLoading">Cancel</button>
+                <button mat-flat-button id="submit-edit-button" type="submit"
+                    [disabled]="isEditUserFormLoading && errorStates.profilePictureTooLargeError"
+                    data-cy="edit-submit-button">Submit</button>
+            </div>
+        </form>
+
+        <hr class="separator">
+
+        <section class="further-settings">
+            <h3>Further Settings</h3>
+            <div class="further-settings-buttons">
+                <button mat-stroked-button routerLink="/user/changepassword">Change Password</button>
+                <!-- TODO: implement reset password-->
+                <button mat-flat-button class="delete-user-button" (click)="openDeleteUserDialog()" data-cy="start-user-deletion-button">
+                    Delete Account
+                </button>
+            </div>
+        </section>
+    </div>
+</div>

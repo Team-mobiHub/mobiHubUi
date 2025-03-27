@@ -1,0 +1,32 @@
+.expansion-panel {
+    min-width: 150px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.search-placeholder {
+    display: flex;
+    align-items: center;
+}
+
+.search-button {
+    float: right;
+}
+
+.search-icon {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.search-text {
+    font-size: 16px;
+    color: #6c757d;
+}

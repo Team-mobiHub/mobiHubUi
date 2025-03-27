@@ -1,0 +1,32 @@
+<mat-toolbar class="header"> <!-- TODO: use palette colors -->
+    <span>
+        <a button routerLink="/home" style="display: flex; align-items: center;">
+            <img src="/images/smaller_logo_no_padding.svg" alt="Logo" style="height: 40px;">
+        </a>
+    </span>
+
+    <span class="fill-remaining-space"></span>
+
+    <span class="button-span"><a mat-button routerLink="/about">About</a></span>
+    <span class="button-span"><a mat-button routerLink="/impressum">Impressum</a></span>
+
+    <span class="button-span" data-cy="create-tm-button"><a mat-flat-button
+            routerLink="/trafficmodel/create">Upload</a></span>
+
+    <ng-container *ngIf="!isUserAuthenticated">
+        <span data-cy="loginButton" class="button-span"><a mat-stroked-button routerLink="/user/login">Login</a></span>
+    </ng-container>
+    <ng-container *ngIf="isUserAuthenticated">
+        <!-- TODO: Add user profile picture. Old code:
+
+        <a button class="button-span" routerLink="/user/" + {{this.user.id}}
+            style="display: flex; align-items: center;">
+            <img src={{this.user.profilePicture}} alt="UserIcon" style="height: 40px;">
+        </a>
+        -->
+
+        <a data-cy="profileButton" mat-button [routerLink]="['/user', this.user?.id]">Profile</a>
+
+        <button data-cy="logoutButton" mat-button (click)="logout()">Logout</button>
+    </ng-container>
+</mat-toolbar>

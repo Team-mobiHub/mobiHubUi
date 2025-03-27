@@ -1,0 +1,38 @@
+<ng-container *ngIf="trafficModel; else loading">
+  <mat-card
+    appearance="outlined"
+    class="mat-card"
+    attr.data-cy="traffic-model-card-{{ trafficModel.trafficModelId }}"
+    routerLink="/trafficmodel/{{ trafficModel.trafficModelId }}"
+  >
+    <div class="traffic-model-card-container">
+      <div class="traffic-model-image-container">
+        <img
+          src="{{ trafficModel.imageURL }}"
+          alt="{{ trafficModel.name }}"
+          class="traffic-model-image"
+        />
+      </div>
+      <div>
+        <mat-card-header>
+          <mat-card-title>{{ trafficModel.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="mat-card-content">
+          <mh-star-rating
+            [rating]="{
+              trafficModelId: trafficModel.trafficModelId,
+              usersRating: 0,
+              averageRating: trafficModel.averageRating
+            }"
+            [searchResultRating]="true"
+          ></mh-star-rating>
+          <p>{{ trafficModel.description }}</p>
+       </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

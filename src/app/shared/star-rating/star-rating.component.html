@@ -1,0 +1,21 @@
+<div class="user-rating" *ngIf="!searchResultRating">
+  <div class="user-text">
+    <mat-icon fontIcon="delete" class="delete-icon" (click)="deleteRating()" *ngIf="rating.usersRating != 0"></mat-icon>
+    <p data-cy="user-rating">Your rating: {{ rating.usersRating !== 0 ? rating.usersRating : '-' }}</p>
+  </div>
+  <div class="user-stars">
+    <ng-container *ngFor="let star of getStars(rating.usersRating); let i = index">
+      <mat-icon fontIcon="star" *ngIf="star === STAR_RATING_FULL" (click)="rateModel(i + 1)" attr.data-cy="user-star-{{i}}"></mat-icon>
+      <mat-icon fontIcon="star_half" *ngIf="star === STAR_RATING_HALF" (click)="rateModel(i + 1)" attr.data-cy="user-star-{{i}}"></mat-icon>
+      <mat-icon fontIcon="star_border" *ngIf="star === STAR_RATING_NONE" (click)="rateModel(i + 1)" attr.data-cy="user-star-{{i}}"></mat-icon>
+    </ng-container>
+  </div>
+</div>
+<div class="average-rating" data-cy="average-rating">
+  <p *ngIf="!searchResultRating">Overall rating: {{ rating.averageRating | number:'1.1-1' }}</p>
+  <ng-container *ngFor="let star of getStars(rating.averageRating); let i = index">
+    <mat-icon fontIcon="star" *ngIf="star === STAR_RATING_FULL"></mat-icon>
+    <mat-icon fontIcon="star_half" *ngIf="star === STAR_RATING_HALF"></mat-icon>
+    <mat-icon fontIcon="star_border" *ngIf="star === STAR_RATING_NONE"></mat-icon>
+  </ng-container>
+</div>

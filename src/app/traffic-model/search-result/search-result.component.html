@@ -1,0 +1,21 @@
+<div class="search-result-container">
+  <mh-search-bar-component></mh-search-bar-component>
+
+  <div class="traffic-model-list-container" data-cy="traffic-model-list">
+    <ng-container *ngIf="trafficModels; else loading">
+      <mh-traffic-model-list [trafficModels]="trafficModels"></mh-traffic-model-list>
+    </ng-container>
+  </div>
+</div>
+
+<mat-paginator [length]="searchResultsCount" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]"
+               (page)="onPageChange($event)"
+               class="search-result-paginator"
+               data-cy="models-per-page"></mat-paginator>
+
+<ng-template #loading>
+  <div class="loading-container" data-cy="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading...</p>
+  </div>
+</ng-template>

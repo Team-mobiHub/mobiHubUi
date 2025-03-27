@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Overwrite file</h2>
+<mat-dialog-content>
+  Would you like to Overwrite {{ fileName }}?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">No</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+</mat-dialog-actions>

@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+.delete-user-button {
+    @include mat.button-overrides((
+    filled-container-color: rgb(208, 27, 27),
+  ));
+}
+
+h2[mat-dialog-title] {
+    padding-left: 16px;
+  }
+  

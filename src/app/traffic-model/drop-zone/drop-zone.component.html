@@ -1,0 +1,27 @@
+<div class="drop-zone" (dragover)="disabled ? null : onDragOver($event)"
+  (dragleave)="disabled ? null : onDragLeave($event)" (drop)="disabled ? null : onDrop($event)"
+  [class.invalid]="isAddingNewFilesRequired() && isDirty">
+  <mat-icon class="icon">cloud_upload</mat-icon>
+
+  <div>
+    <p *ngIf="isAddingNewFilesAllowed()">Drag and drop {{ props.fileDesignation }} here</p>
+
+    <mat-error *ngIf="isDirty && isAddingNewFilesRequired()">{{ props.fileDesignation }} is required!</mat-error>
+    <div *ngFor="let file of filesToDisplay" class="added-info">
+      <p>{{ file.name | ellipsis: 22 }} ({{ file.size | fileSize }})</p>
+      <button mat-icon-button type="button" type="button" aria-label="Remove file" class="remove-file-btn"
+        (click)="removeFile(file)" [disabled]="disabled">
+        <mat-icon class="remove-file">close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <input type="file" class="file-input" accept="{{ props.allowedFileTypes.join(',') }}"
+    (change)="onFileSelected($event)" #fileUpload [disabled]="disabled" />
+  <div class="file-upload">
+    <button mat-stroked-button type="button" extended color="primary" class="upload-btn" (click)="fileUpload.click()"
+      [disabled]="disabled">
+      SELECT FILE
+    </button>
+  </div>
+</div>

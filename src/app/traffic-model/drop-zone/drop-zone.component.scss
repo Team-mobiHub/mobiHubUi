@@ -1,0 +1,44 @@
+.drop-zone {
+  width: 100%;
+  min-height: 200px;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  color: #ccc;
+  border-radius: 8px;
+}
+
+.drop-zone.dragover {
+  border-color: #000;
+  color: #000;
+}
+
+.drop-zone.invalid {
+  border-color: red;
+}
+
+.icon {
+  transform: scale(3);
+}
+
+.file-input {
+  display: none;
+}
+
+.remove-file {
+  color: #ccc;
+}
+
+.added-info {
+  // Show elements in same line
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove-file-btn {
+  margin: 0px;
+  padding: 0px;
+}

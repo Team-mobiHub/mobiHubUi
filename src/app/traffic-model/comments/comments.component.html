@@ -1,0 +1,78 @@
+<h1>Comments</h1>
+
+<div class="comment-container">
+    <img [src]="currentUser?.profilePictureLink || defaultProfilePicture" alt="anonymous" [routerLink]="userRoute + currentUser?.id">
+  <form [formGroup]="addCommentForm" (ngSubmit)="onCreateComment()" class="comment-box" >
+    <mat-form-field class="comment-box-input-content" appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Add your Comment here</mat-label>
+      <textarea matInput formControlName="content" [cdkTextareaAutosize]="true" [cdkAutosizeMinRows]="4" ></textarea>
+      <mat-error *ngIf="addCommentForm.get('content')?.hasError('notLoggedIn')">
+        Login to leave a comment
+      </mat-error>
+      <mat-error *ngIf="addCommentForm.get('content')?.hasError('maxlength')">
+        Comment is to long
+      </mat-error>
+    </mat-form-field>
+
+    <div class="comment-box-footer">
+      {{currentUser?.name}}
+      <button mat-flat-button type="submit" [disabled]="!addCommentForm.get('content')?.value?.trim() || addCommentForm.get('content')?.errors">Comment</button>
+    </div>
+  </form>
+</div>
+
+
+<form [formGroup]="commentsListForm">
+  <form formArrayName="commentsArray">
+    <div *ngFor="let comment of commentsArray.controls; let currentIndex = index" [formGroupName]="currentIndex">
+
+      <div class="comment-container" *ngIf="!comment.get('editMode')?.value; else editModeTemplate">
+        <img [src]="comment.get('profilePicture')?.value || defaultProfilePicture" alt="anonymous" [routerLink]="userRoute + comment.get('userId')?.value">
+        <div class="comment-box">
+          <div class="comment-box-display-content">
+            <p style="padding: 0 15px; white-space: pre-wrap">{{comment.get('content')?.value}}</p>
+          </div>
+          <div class="comment-box-footer">
+            <span>{{comment.get('userName')?.value}}</span>
+            <span>
+              <button mat-flat-button *ngIf="comment.get('userId')?.value === currentUser?.id" (click)="onToggleEditMode(currentIndex)">
+                Edit
+              </button>
+              {{comment.get('date')?.value | date: 'mediumDate'}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #editModeTemplate >
+        <div class="comment-container">
+          <img [src]="comment.get('profilePicture')?.value || defaultProfilePicture" alt="anonymous" [routerLink]="userRoute + comment.get('userId')?.value">
+          <div class="comment-box">
+            <mat-form-field class="comment-box-input-content" appearance="outline" subscriptSizing="dynamic">
+              <textarea matInput formControlName="content" [cdkTextareaAutosize]="true" [cdkAutosizeMinRows]="4">{{comment.get('content')?.value}}</textarea>
+              <mat-error *ngIf="comment.get('content')?.hasError('maxlength')">
+                Comment is to long
+              </mat-error>
+            </mat-form-field>
+            <div class="comment-box-footer">
+              <span>{{comment.get('userName')?.value}}</span>
+              <span>
+                <button mat-flat-button [disabled]="!comment.get('content')?.value?.trim() || comment.get('content')?.errors || comment.get('originalContent')?.value === comment.get('content')?.value?.trim()" (click)="onUpdateComment(currentIndex)">
+                  Save
+                </button>
+                <button mat-flat-button (click)="onToggleEditMode(currentIndex)">
+                  Cancel
+                </button>
+                <button mat-flat-button (click)="onDeleteComment(currentIndex)" style="background-color: red">
+                  Delete
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </form>
+</form>
+

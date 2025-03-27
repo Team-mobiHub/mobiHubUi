@@ -1,0 +1,22 @@
+{
+  "isVisibilityPublic": true,
+  "name": "Radfahrer vs. Autofahrer",
+  "description": "Ein Simulationsmodell für das tägliche Duell im Stadtverkehr. ",
+  "region": "Kopenhagen",
+  "framework": "PTV_VISUM",
+  "coordinates": "55.6761,12.5683",
+  "dataSourceUrl": "Source URL: https://data.example.com/radfahrer",
+  "imagePaths": [
+    "cypress/fixtures/test-files/tm-picture.jpg",
+    "cypress/fixtures/test-files/tm-picture2.png"
+  ],
+  "imageDimensions": [
+    [ 3992, 2992 ],
+    [ 1920, 1920 ]
+  ],
+  "characteristics": [
+    ["TARGET_SELECTION", "MIXED_LOGIT"]
+  ],
+  "zipPath": "not tested"
+}
+

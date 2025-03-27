@@ -1,0 +1,13 @@
+<div class="center">
+    <h1>Edit traffic model</h1>
+
+    <ng-container *ngIf="trafficModel$ | async as trafficModel">
+        <mh-traffic-model-form [trafficModel]="trafficModel"
+            (submitTrafficModel)="update($event)"></mh-traffic-model-form>
+        <button mat-fab type="button" (click)="openDeleteDialog(trafficModel.id)" [disabled]="isUploadProcessRunning" data-cy="model-delete-button">
+            Delete
+        </button>
+    </ng-container>
+    <mat-error *ngIf="fatalSavingError">Error while saving the traffic model.</mat-error>
+    <mat-spinner *ngIf="isUploadProcessRunning"></mat-spinner>
+</div>

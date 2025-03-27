@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Delete User</h2>
+<mat-dialog-content>
+    <p>Warning! Deleting your user account will also delete all of your traffic models 
+        and any teams of which you are the owner.</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button class="delete-user-button" mat-dialog-close (click)="deleteUser()" data-cy="confirm-user-deletion-button">
+        Delete Account
+    </button>
+    <button mat-stroked-button class="Cancel-button" (click)="close()">
+        Cancel
+    </button>
+    <ng-container *ngIf="deleteError">
+        <span><p>An error has occoured.</p></span>
+    </ng-container>
+</mat-dialog-actions>

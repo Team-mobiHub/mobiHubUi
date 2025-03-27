@@ -1,0 +1,76 @@
+@use '../../shared/common-variables.scss';
+
+#auth-form-heading {
+    font-size: 20px;
+}
+
+.firstLogoColor {
+    color: common-variables.$first-logo-color;
+}
+
+.secondLogoColor {
+    color: common-variables.$second-logo-color;
+}
+
+#auth-form-progress-bar {
+    margin-bottom: 5px;
+}
+
+.auth-form {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.auth-form-field {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+#auth-form-submit-button {
+    float: right;
+}
+
+.auth-form-error-message {
+    margin-top: 0px;
+    color: common-variables.$error-color;
+}
+
+.auth-form-separator {
+    margin-top: 25px;
+    width: 100%;
+    border: none;
+    border-top: 1px solid gray;
+}
+
+#auth-form-footer {
+    margin-bottom: 0;
+}
+
+// Auth form success components
+#mail-sent-image {
+    margin-top: 20px;
+    max-width: 150px;
+}
+
+#success-image {
+    margin-top: 15px;
+    max-width: 100px;
+}
+
+#auth-form-success-heading {
+    margin-bottom: 10px;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#auth-form-success-message {
+    margin-top: 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+#auth-form-success-login-button {
+    width: 100%;
+    margin-top: 10px;
+}

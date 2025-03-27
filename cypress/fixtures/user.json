@@ -1,0 +1,10 @@
+{
+    "id": 1,
+    "name": "Bobi",
+    "email": "myemail@example.com",
+    "profilePicture": null,
+    "isEmailVerified": true,
+    "profilePictureLink": "test",
+    "isAdmin": true,
+    "teams": []
+}

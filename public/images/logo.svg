@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="1.8984375"
+     inkscape:cx="289.44856"
+     inkscape:cy="227.02881"
+     inkscape:window-width="1264"
+     inkscape:window-height="715"
+     inkscape:window-x="8"
+     inkscape:window-y="40"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient18"
+       inkscape:swatch="gradient">
+      <stop
+         style="stop-color:#608bc1;stop-opacity:1;"
+         offset="0"
+         id="stop18" />
+      <stop
+         style="stop-color:#608bc1;stop-opacity:0;"
+         offset="1"
+         id="stop19" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient5"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop5" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop6" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5"
+       id="linearGradient6"
+       x1="258.42502"
+       y1="241.63855"
+       x2="355.05453"
+       y2="241.63855"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Box">
+    <rect
+       style="opacity:1;mix-blend-mode:normal;fill:#f3f3e0;fill-opacity:1;fill-rule:nonzero;stroke:#5e7aa4;stroke-width:1.87622;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3"
+       width="100.59"
+       height="147.11813"
+       x="252.70724"
+       y="172.38161"
+       rx="4.4429998" />
+  </g>
+  <g
+     inkscape:label="Text"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:181.05px;font-family:Rubik;-inkscape-font-specification:'Rubik, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;mix-blend-mode:normal;fill:#608bc1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:17.0692;stroke-opacity:1;paint-order:stroke markers fill"
+       x="258.58875"
+       y="301.47025"
+       id="text2"
+       inkscape:label="text2"
+       transform="scale(0.96444994,1.0368604)"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="258.58875"
+         y="301.47025"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:181.05000752px;font-family:Rubik;-inkscape-font-specification:'Rubik, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#608bc1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:17.0692;stroke-opacity:1;paint-order:stroke markers fill">h</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:192px;font-family:Rubik;-inkscape-font-specification:'Rubik, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;mix-blend-mode:normal;fill:#133e87;fill-opacity:1;fill-rule:nonzero;stroke-width:17.3024"
+       x="122.1806"
+       y="312.81168"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="122.1806"
+         y="312.81168"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:192px;font-family:Rubik;-inkscape-font-specification:'Rubik, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#133e87;fill-opacity:1;fill-rule:nonzero;stroke-width:17.3024">m</tspan></text>
+  </g>
+</svg>

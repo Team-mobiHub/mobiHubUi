@@ -1,0 +1,143 @@
+<div class="page" *ngIf="!isLoading; else loading">
+    <div class="searchbar">
+        <mh-search-bar-component></mh-search-bar-component>
+    </div>
+    <div class="error-message" *ngIf="!trafficModelFound; else showModel">
+        <h2 data-cy="error_heading">{{ ERROR_MESSAGE_HEADING }}</h2>
+        <p data-cy="error_message">{{ ERROR_MESSAGE_BODY }}</p>
+    </div>
+    <ng-template #showModel>
+        <div class="model">
+            <div class="model-entry">
+                <div class="model-header">
+                    <div class="model-visibility">
+                        <ng-container *ngIf="trafficModel.isVisibilityPublic; else privatePage">
+                            <p data-cy="model-visibility-public">Public Page</p>
+                        </ng-container>
+                        <ng-template #privatePage>
+                            <p data-cy="model-visibility-private">Private Page</p>
+                        </ng-template>
+                    </div>
+                    <div class="model-name-and-picture">
+                        <div class="model-name">
+                            <div class="title">
+                                <h1 class="model-name" data-cy="model-name">{{ trafficModel.name }}</h1>
+                                <div class="model-favorite-icon" (click)="favouriteModel()" data-cy="favorite-button">
+                                    <ng-container *ngIf="trafficModel.isFavorite; else notFavorite">
+                                        <mat-icon fontIcon="favorite" data-cy="model-is-favorite"></mat-icon>
+                                    </ng-container>
+                                    <ng-template #notFavorite>
+                                        <mat-icon fontIcon="favorite_outline"></mat-icon>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <hr>
+                            <p class="model-author" data-cy="model-author">
+                                Published by:
+                                <a [routerLink]="trafficModelOwnerURL">{{ trafficModelOwnerName }}</a>
+                            </p>
+                        </div>
+                        <div class="model-picture">
+                            <ng-container *ngIf="trafficModel.imageURLs?.length; else noImage">
+                                <button *ngIf="hasMultiplePictures" (click)="previousImage()"
+                                    data-cy="previous-picture-button"> &lt;
+                                </button>
+                                <img [src]="trafficModel.imageURLs[currentImageIndex]"
+                                    alt="{{trafficModel.imageURLs[currentImageIndex]}}"
+                                    attr.data-cy="model-image-{{currentImageIndex}}">
+                                <button *ngIf="hasMultiplePictures" (click)="nextImage()" data-cy="next-picture-button">
+                                    &gt; </button>
+                            </ng-container>
+                            <ng-template #noImage>
+                                <img src="/images/placeholder.png" alt="Placeholder">
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                <div class="model-body">
+                    <div class="model-information">
+                        <div class="model-details">
+                            <div class="model-data">
+                                <p data-cy="model-region">Region: {{trafficModel.region}}</p>
+                                <p data-cy="model-coordinates">Coordinates: {{trafficModel.coordinates}}</p>
+                                <p data-cy="model-framework">
+                                    Framework:
+                                    <a [routerLink]="searchUrl" [queryParams]="{ framework: trafficModel.framework}"
+                                        matTooltip="Search for Traffic Models with this framework"
+                                        matTooltipPosition="right"
+                                        aria-label="Search for Traffic Models with this framework">
+                                        {{ FRAMEWORK_PRETTY_STRINGS[trafficModel.framework] }}
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="model-rating">
+                                <mh-star-rating [rating]="trafficModel.rating"></mh-star-rating>
+                            </div>
+                        </div>
+                        <mat-expansion-panel class="model-characteristics">
+                            <mat-expansion-panel-header data-cy="model-details-expansion-button">
+                                <mat-panel-title>
+                                    Details
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class=" model-characteristics-data">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Model Level</th>
+                                            <th>Model Method</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of trafficModel.characteristics; let i = index">
+                                            <td>{{ i + 1 }}</td>
+                                            <td attr.data-cy="model-level-{{i}}">{{
+                                                MODEL_LEVEL_PRETTY_STRINGS[item.modelLevel] }}</td>
+                                            <td attr.data-cy="model-method-{{i}}">{{
+                                                MODEL_METHOD_PRETTY_STRINGS[item.modelMethod] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </mat-expansion-panel>
+                        <div class="model-description">
+                            <h3>Description:</h3>
+                            <p class="description-content" data-cy="model-description">
+                                {{ trafficModel.description }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="model-interactions">
+                        <div class="model-download">
+                            <button (click)="downloadModel()">
+                                <mat-icon fontIcon="download"></mat-icon> Download
+                            </button>
+                        </div>
+                        <div class="model-edit" *ngIf="isUserOwner" data-cy="model-edit-button">
+                            <button (click)="editModel()">
+                                <mat-icon fontIcon="edit"></mat-icon> Edit
+                            </button>
+                        </div>
+                        <div class="model-source-url" data-cy="model-data-source-url">
+                            <a href="{{trafficModel.dataSourceUrl}}">
+                                <p data-cy="source-url">Source URL: {{ trafficModel.dataSourceUrl }}</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="model-comments">
+                <mh-comments [trafficModelId]="trafficmodelId" [comments]="trafficModel.comments"></mh-comments>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<!-- This is shown when the page is loading -->
+<ng-template #loading>
+    <div class="loading-container">
+        <mat-spinner></mat-spinner>
+        <p>Loading...</p>
+    </div>
+</ng-template>

@@ -1,0 +1,20 @@
+{
+  "isVisibilityPublic": true,
+  "name": "Creates TM 1 - Public",
+  "description": "this Tm got created automatically by a cypress E2E test",
+  "region": "Karlsruhe",
+  "framework": "CUBE",
+  "coordinates": "49.01169207684419, 8.416406427651829",
+  "dataSourceUrl": "https://www.example.com",
+  "imagePaths": ["cypress/fixtures/test-files/tm-picture.jpg"],
+  "imageDimensions": [
+    [ 3992, 2992 ]
+  ],
+  "characteristics": [
+    ["CAR_OWNER", "NESTED_LOGIT"],
+    ["TARGET_SELECTION", "MIXED_LOGIT"],
+    ["VEHICLE_FOLLOWING_DISTANCE", "WIEDEMANN_99"]
+  ],
+  "zipPath": "cypress/fixtures/test-files/zip-test.zip"
+}
+

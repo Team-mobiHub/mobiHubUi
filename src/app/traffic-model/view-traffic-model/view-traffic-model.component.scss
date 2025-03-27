@@ -1,0 +1,271 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center
+}
+
+.searchbar {
+    //Positions the searchbar at a fixed point and lets it appear over other elements.
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 75px;
+    left: auto;
+    z-index: 99;
+}
+
+.error-message {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 100px;
+    text-align: center;
+}
+
+.model {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 80%;
+    //These 2 lines are also required for the floating searchbar.
+    position: relative;
+    top: 100px;
+}
+
+.model-entry {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+.model-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.model-name-and-picture {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 25vh;
+
+}
+
+.model-name {
+    width: 100%;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.model-picture {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    position: relative;
+}
+
+.model-picture img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.model-picture button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-25%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.model-picture button:first-of-type {
+    left: 1px;
+}
+
+.model-picture button:last-of-type {
+    right: 1px;
+}
+
+.model-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.model-information {
+    display: flex;
+    flex-direction: column;
+}
+
+.model-characteristics {
+    display: flex;
+    flex-direction: column;
+    background: var(--light-blue, #CBDCEB);
+    border-radius: 10px;
+    margin: 20px 0px;
+}
+
+.model-data {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.model-rating {
+
+    text-align: right;
+
+    p {
+        margin: 0;
+    }
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.model-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+.details-chevron {
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+    }
+}
+
+.model-characteristics-data {
+    table {
+        width: 100%;
+        font-size: 18px;
+        border-collapse: separate;
+        border-spacing: 10px 10px;
+        text-align: center;
+
+        thead th {
+            padding: 5px 10px;
+            text-align: left;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+
+        tbody td {
+            padding: 10px 12px;
+
+            &:nth-child(2),
+            &:nth-child(3) {
+                text-align: left;
+                background-color: white;
+                border-radius: 10px;
+                font-size: 16px;
+            }
+
+            &:first-child {
+                border: 1px solid black;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                padding: 0;
+                line-height: 30px;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.model-description {
+    h3 {
+        margin-bottom: 10px;
+    }
+
+    .description-content {
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        padding: 15px;
+        max-height: 400px;
+        white-space: pre-wrap;
+        overflow-y: auto;
+    }
+}
+
+.model-interactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .model-download,
+    .model-edit {
+        button {
+            font-size: 20px;
+            background-color: #608BC1;
+            color: white;
+            border: none;
+            padding: 10px 10px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button img {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+        }
+    }
+
+    .model-source-url {
+        margin-left: auto;
+
+        p {
+            margin: 0;
+        }
+    }
+}
+
+.model-comments {
+    width: 75%;
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+.loading-container {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-container p {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #757575;
+}

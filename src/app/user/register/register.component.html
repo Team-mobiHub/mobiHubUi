@@ -1,0 +1,121 @@
+<mh-auth-form>
+    <p id="auth-form-heading">
+        Create your <b><span class="firstLogoColor">mobi</span><span class="secondLogoColor">Hub</span></b> Account
+    </p>
+
+    <!-- This container is shown when the page loads.
+     It is hidden as soon as the registration was successfully completed
+     -->
+    <ng-container *ngIf="!registrationComplete">
+        <mat-progress-bar *ngIf="isRegisterFormLoading" id="auth-form-progress-bar" mode="indeterminate"></mat-progress-bar>
+
+        <!-- Form for entering the new user data -->
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+            <!-- Email field -->
+            <mat-form-field class="auth-form-field" appearance="outline" subscriptSizing="dynamic">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" autofocus>
+
+                <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+                    Email is required
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('email')?.hasError(validatorErrorKeys.emailPattern)">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('email')?.hasError('maxlength')">
+                    Email is too long
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('email')?.hasError('emailInUse')">
+                    An Account with this email address already exists. Please sign in or reset your password
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Username field -->
+            <mat-form-field class="auth-form-field" appearance="outline" subscriptSizing="dynamic">
+                <mat-label>Username</mat-label>
+                <input type="text" matInput formControlName="username">
+
+                <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
+                    Username is required
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('username')?.hasError('minlength')">
+                    Username is too short
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('username')?.hasError('maxlength')">
+                    Username is too long
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('username')?.hasError('usernameInUse')">
+                    Username is already taken
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Password field -->
+            <mat-form-field class="auth-form-field" appearance="outline" subscriptSizing="dynamic">
+                <mat-label>New Password</mat-label>
+                <input type="password" matInput formControlName="newPassword">
+                <mat-hint>At least {{ this.dataConstants.MINIMUM_PASSWORD_LENGTH }} characters<br />Upper and lower case letters<br />At least one special character</mat-hint>
+
+                <mat-error *ngIf="registerForm.get('newPassword')?.hasError('required')">
+                    Password is required
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('newPassword')?.hasError('minlength')">
+                    Password must be at least {{ this.dataConstants.MINIMUM_PASSWORD_LENGTH }} characters long
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('newPassword')?.hasError('maxlength')">
+                    Password is too long
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('newPassword')?.hasError(validatorErrorKeys.missingLowerCase)">
+                    Password must contain at least one lowercase letter
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('newPassword')?.hasError(validatorErrorKeys.missingUpperCase)">
+                    Password must contain at least one uppercase letter
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('newPassword')?.hasError(validatorErrorKeys.missingSpecialCharacter)">
+                    Password must contain at least one special character
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Confirm Password field -->
+            <mat-form-field class="auth-form-field" appearance="outline" subscriptSizing="dynamic">
+                <mat-label>Confirm Password</mat-label>
+                <input type="password" matInput id="confirmPassword" formControlName="confirmPassword"
+                    [errorStateMatcher]="confirmPasswordMatcher">
+
+                <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">
+                    Confirm Password is required
+                </mat-error>
+                <mat-error *ngIf="registerForm.hasError(validatorErrorKeys.passwordMisMatch)">
+                    Passwords do not match
+                </mat-error>
+            </mat-form-field>
+
+            <p class="auth-form-error-message" *ngIf="fatalRegistrationError">
+                An error occurred while creating your account. Please try again later.
+            </p>
+
+            <button mat-flat-button id="auth-form-submit-button" type="submit" [disabled]="isRegisterFormLoading">
+                Create Account
+            </button>
+        </form>
+
+        <hr class="auth-form-separator">
+
+        <p id="auth-form-footer">Already have an account? <a routerLink="../login">Sign in</a></p>
+    </ng-container>
+
+    <!-- This container is show when the user was registered successfully. It shows a success message to the user -->
+    <ng-container *ngIf="registrationComplete">
+        <img id="mail-sent-image" src="/images/undraw_mail-sent_ujev.svg" alt="Email successfully sent image">
+        <p id="auth-form-success-heading">Account Created</p>
+        <p id="auth-form-success-message">
+            Your <b><span class="firstLogoColor">mobi</span><span class="secondLogoColor">Hub</span></b> Account has been created successfully.
+            <!-- TODO: Uncomment this message when email verification is implemented:
+            Please check your email to verify your account.
+            -->
+        </p>
+        <button mat-flat-button id="auth-form-success-login-button" routerLink="../login">Sign in</button>
+    </ng-container>
+</mh-auth-form>
+
+<!-- Preload the image shown when the registration is complete, so that it is shown instantly -->
+<img src="/images/undraw_mail-sent_ujev.svg" alt="" style="display: none;">

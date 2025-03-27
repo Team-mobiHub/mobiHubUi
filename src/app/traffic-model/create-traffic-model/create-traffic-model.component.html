@@ -1,0 +1,7 @@
+<div class="center">
+    <h1>Create traffic model</h1>
+
+    <mh-traffic-model-form (submitTrafficModel)="create($event)"></mh-traffic-model-form>
+    <mat-error *ngIf="fatalRegistrationError">Error while creating the traffic model.</mat-error>
+    <mat-spinner *ngIf="isUploadProcessRunning"></mat-spinner>
+</div>

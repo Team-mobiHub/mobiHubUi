@@ -1,0 +1,143 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()" class="form">
+    <table class="full-width table" cellspacing="0">
+        <tr>
+            <td><mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Visibility</mat-label>
+                    <mat-select formControlName="isVisibilityPublic">
+                        <mat-option [value]="false" data-cy="option-private">
+                            <mat-icon>lock_outline</mat-icon>
+                            <span>Private</span>
+                        </mat-option>
+                        <mat-option [value]="true" data-cy="option-public">
+                            <mat-icon>lock_open</mat-icon>
+                            <span>Public</span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Owner</mat-label>
+                    <mat-select formControlName="owner">
+                        <mat-option *ngIf="currentUser" [value]="currentUser">{{ currentUser.name }}</mat-option>
+                        <!-- TODO: Add teams -->
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Model Name</mat-label>
+        <input data-cy="model-name-input" matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Describe your model"></textarea>
+    </mat-form-field>
+
+    <table class="full-width table">
+        <tr>
+            <td>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Region</mat-label>
+                    <input matInput formControlName="region">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Framework</mat-label>
+                    <mat-select formControlName="framework" data-cy="framework-selector">
+                        @for (framework of frameworks; track framework) {
+                        <mat-option [value]="framework">{{ FRAMEWORK_PRETTY_STRINGS[framework] }}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+    <mat-form-field class="full-width input-mat-hint-margin" appearance="outline">
+        <mat-label>Coordinates</mat-label>
+        <input matInput formControlName="coordinates">
+        <!-- Example coordinates are the coordinates of the Karlsruhe marketplace. -->
+        <mat-hint>Example: +49.034, +8.2415</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Datasource URL</mat-label>
+        <input data-cy="data-source-url-input" matInput formControlName="dataSourceUrl" placeholder="Where your model data comes from">
+        <mat-error data-cy="source-url-error" *ngIf="form.get('dataSourceUrl')?.hasError('pattern')">
+            Please enter a valid URL
+        </mat-error>
+    </mat-form-field>
+
+    <div class="drop-zone-container">
+        <h3 class="center">Upload some images for your traffic model:</h3>
+        <mh-drop-zone class="drop-zone" [props]="imageDropZoneProps" [existingFiles]="imageTokens"
+            (filesChanged)="onImageFilesChange($event)" [disabled]="form.disabled" data-cy="drop-zone-images"></mh-drop-zone>
+    </div>
+
+    <h3 class="center">Characteristics</h3>
+    <table class="full-width table" cellspacing="0" formArrayName="characteristics" data-cy="characteristics-table">
+        <tr class="full-width" *ngFor="let characteristic of characteristics.controls; let i = index"
+            [formGroupName]="i">
+            <td>
+                <div class="numberCircle">{{ i+1 }}</div>
+            </td>
+            <td>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Model level</mat-label>
+                    <mat-select formControlName="modelLevel" attr.data-cy="model-level-selector-{{i}}">
+                        @for (level of modelLevels; track level) {
+                        <mat-option [value]="level" data-cy="model-level-option">{{ MODEL_LEVEL_PRETTY_STRINGS[level] }}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Model method</mat-label>
+                    <mat-select formControlName="modelMethod" attr.data-cy="model-method-selector-{{i}}">
+                        @for (method of getallowedModelMethods(i); track method) {
+                        <mat-option [value]="method" data-cy="model-method-option">{{ MODEL_METHOD_PRETTY_STRINGS[method] }}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <button mat-fab type="button" aria-label="Delete this characteristic" (click)="deleteCharacteristic(i)"
+                    [disabled]="form.disabled" data-cy="button-delete-characteristic">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <mat-error *ngIf="characteristics.hasError(validatorErrorKeys.duplicateCharacteristics)"
+        class="center duplicate-characteristics-error">
+        Duplicate characteristics are not allowed.
+    </mat-error>
+
+    <div class="center">
+        <button mat-fab extended type="button" aria-label="Add new characteristic" (click)="addNewCharacteristic()" data-cy="button-add-characteristic"
+            [disabled]="form.disabled">
+            <mat-icon>add</mat-icon>
+            <span>Add</span>
+        </button>
+    </div>
+
+    <div class="drop-zone-container">
+        <h3 class="center">Upload your traffic model files as an zip-File:</h3>
+        <mh-drop-zone class="drop-zone" [props]="zipDropZoneProps" [existingFiles]="zipFileToken"
+            (filesChanged)="onZipFileChange($event)" [disabled]="form.disabled" data-cy="drop-zone-zip">
+        </mh-drop-zone>
+    </div>
+
+    <div class="button-container">
+        <button mat-stroked-button color="warn" aria-label="Cancel & delete changes" type="button"
+            routerLink="/">Cancel</button>
+        <button mat-flat-button color="primary" aria-label="Save changes" type="submit"
+            [disabled]="form.invalid || form.disabled" data-cy="save-button">Save</button>
+    </div>
+</form>

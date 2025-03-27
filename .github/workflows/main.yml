@@ -1,0 +1,59 @@
+name: Docker Image CI for mobihub-UI
+
+on:
+  push:
+    branches: [ "master", "F98_CI-CD" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  DOCKER_IMAGE_NAME: mobihub-ui
+  RELEASE_VERSION: ${{ github.run_number }}
+  DOCKER_REGISTRY_URL: ${{ vars.DOCKER_REGISTRY_URL }}
+  DOCKER_REGISTRY_USER: ${{ vars.DOCKER_REGISTRY_USER }}
+
+jobs:
+
+  build-and-push-image:
+    name: Build Docker Image
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Output Run Number
+        run: echo ${{ env.RELEASE_VERSION }}
+      
+      - name: Login to dockerHub
+        run: docker login --username ${{ env.DOCKER_REGISTRY_USER }} --password ${{ secrets.ACR }} ${{ env.DOCKER_REGISTRY_URL }}
+
+      - name: checkout
+        uses: actions/checkout@v4
+
+      # Build the Docker image
+      - name: Build docker image
+        run: docker build . --file Dockerfile --tag ${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
+
+      # Tag the Docker Images
+      - name: Tag the image for the private registry ${{ env.DOCKER_REGISTRY_URL }}
+        run: docker tag ${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.DOCKER_REGISTRY_URL }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
+
+      - name: Create a latest image as well
+        run: docker tag ${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_VERSION }} ${{ env.DOCKER_REGISTRY_URL }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+
+      # Push the images to the registry
+      - name: Push the Docker image with version number
+        run: docker push ${{ env.DOCKER_REGISTRY_URL }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
+  
+      - name: Push the latest tag
+        run: docker push ${{ env.DOCKER_REGISTRY_URL }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+  
+      # Remove the local images
+      - name: Remove the Docker image with version number
+        run: docker rmi ${{ env.DOCKER_REGISTRY_URL }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
+  
+      - name: Remove the Docker image with latest tag
+        run: docker rmi ${{ env.DOCKER_REGISTRY_URL }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+  
+      - name: Remove the local image
+        run: docker rmi ${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
+        

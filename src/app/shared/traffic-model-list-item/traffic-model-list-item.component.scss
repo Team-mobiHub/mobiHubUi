@@ -1,0 +1,30 @@
+.mat-card {
+  background-color: white;
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 10px; // Add margin to create space between list items
+}
+
+.traffic-model-image-container {
+  flex: 0 0 auto;
+  margin-right: 20px; // Add space between the image and the content
+}
+
+.traffic-model-image {
+  width: 200px; // Adjust the size as needed
+  height: 200px; // Adjust the size as needed
+  object-fit: cover; // Ensure the image covers the container without distortion
+}
+
+.traffic-model-card-container {
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+  gap: 16px;
+  /* Adds spacing between elements */
+}
+
+.mat-card-content {
+  padding-top: 10px
+}

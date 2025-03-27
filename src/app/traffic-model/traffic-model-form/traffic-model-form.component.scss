@@ -1,0 +1,65 @@
+.form {
+    min-width: 580px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.table {
+    border-spacing: 0 8px;
+}
+
+td {
+    padding: 0 8px;
+}
+
+td:first-child {
+    padding-left: 0;
+}
+
+td:last-child {
+    padding-right: 0;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+
+    background: #608BC1;
+    color: #ffffff;
+    text-align: center;
+
+    font: 32px Arial, sans-serif;
+}
+
+.drop-zone {
+    display: flex;
+    justify-content: center;
+}
+
+.drop-zone-container {
+    padding-bottom: 30px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.duplicate-characteristics-error {
+    padding-bottom: 18px;
+}
+
+.input-mat-hint-margin {
+    margin-bottom: 15px;
+}

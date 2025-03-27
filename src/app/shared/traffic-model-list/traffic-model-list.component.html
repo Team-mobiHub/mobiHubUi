@@ -1,0 +1,12 @@
+<ul *ngIf="trafficModels.length > 0; else notrafficmodels" class="traffic-model-list">
+  <mh-traffic-model-list-item *ngFor="let trafficModel of trafficModels"
+                              [trafficModel]="trafficModel"></mh-traffic-model-list-item>
+</ul>
+
+<ng-template #notrafficmodels>
+  <mat-card class="no-traffic-models-card" data-cy="no-traffic-models-card">
+    <mat-card-content>
+      <p class="no-traffic-models-text">We couldn't find any traffic models that match what you're looking for...</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

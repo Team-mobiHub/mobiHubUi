@@ -1,0 +1,68 @@
+<mat-expansion-panel class="expansion-panel">
+    <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'" data-cy="search-header">
+        <mat-chip-set *ngIf="searchParameters.length > 0" aria-label="Filters">
+            <mat-chip *ngFor="let parameter of searchParameters"> {{ parameter }} </mat-chip>
+        </mat-chip-set>
+        <p *ngIf="searchParameters.length === 0" class="search-placeholder">
+            <mat-icon class="search-icon">search</mat-icon>
+            <span class="search-text" data-cy="search-text">Start your search here</span>
+        </p>
+    </mat-expansion-panel-header>
+    <table class="full-width">
+        <tr>
+            <td class="half-width">
+                <form [formGroup]="form" (ngSubmit)="submitForm()">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Identifier</mat-label>
+                        <input matInput formControlName="identifier" data-cy="search-identifier">
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Author</mat-label>
+                        <input matInput formControlName="author" data-cy="search-author">
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Region</mat-label>
+                        <input matInput formControlName="region" data-cy="search-region">
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Model level</mat-label>
+                        <mat-select formControlName="modelLevel" multiple data-cy="search-model-level">
+                            @for (modelLevel of modelLevels; track modelLevel) {
+                            <mat-option [value]="modelLevel">
+                                {{ MODEL_LEVEL_PRETTY_STRINGS[modelLevel] }}
+                            </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Model Method</mat-label>
+                        <mat-select formControlName="modelMethod" multiple data-cy="search-model-method">
+                            @for (modelMethod of modelMethods; track modelMethod) {
+                            <mat-option [value]="modelMethod">
+                                {{ MODEL_METHOD_PRETTY_STRINGS[modelMethod] }}
+                            </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Framework</mat-label>
+                        <mat-select formControlName="framework" multiple data-cy="search-framework">
+                            @for (framework of frameworks; track framework) {
+                            <mat-option [value]="framework">
+                                {{ FRAMEWORK_PRETTY_STRINGS[framework] }}
+                            </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-button type="button" (click)="clearForm()" data-cy="search-clear-button">Clear</button>
+                    <button mat-flat-button class="search-button" data-cy="search-submit-button">Search</button>
+                </form>
+            </td>
+            <mat-divider [vertical]="true"></mat-divider>
+            <td>
+                <!-- Add suggestions here, if this feature gets implemented -->
+            </td>
+        </tr>
+    </table>
+</mat-expansion-panel>

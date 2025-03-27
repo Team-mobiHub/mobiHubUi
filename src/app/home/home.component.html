@@ -1,0 +1,21 @@
+<div class="homepage">
+    <h1 class="homepage-heading">
+        Welcome to <span class="firstLogoColor">mobi</span><span class="secondLogoColor">Hub</span>
+    </h1>
+    <h2 class="homepage-subheading">
+        A platform for traffic model sharing
+    </h2>
+
+    <mh-search-bar-component class="search-bar"></mh-search-bar-component>
+
+    <h3 class="homepage-featured-heading">Featured traffic models</h3>
+
+    <ng-container *ngIf="trafficModels$ | async as SearchResultItemDto; else loading">
+        <mh-traffic-model-list [trafficModels]="SearchResultItemDto">
+        </mh-traffic-model-list>
+    </ng-container>
+
+    <ng-template #loading>
+        <p>Loading...</p>
+    </ng-template>
+</div>

@@ -1,0 +1,50 @@
+<mh-auth-form>
+    <p id="auth-form-heading">
+        Sign in to <b><span class="firstLogoColor">mobi</span><span class="secondLogoColor">Hub</span></b>
+    </p>
+
+    <mat-progress-bar *ngIf="isLoginFormLoading" id="auth-form-progress-bar" mode="indeterminate"></mat-progress-bar>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <!-- Email field -->
+        <mat-form-field class="auth-form-field" appearance="outline" subscriptSizing="dynamic" data-cy="login-email-field">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" autofocus>
+
+            <mat-error *ngIf="loginForm.get('email')?.hasError('required')" data-cy="login-email-required-error">
+                Email is required
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('email')?.hasError(validatorErrorKeys.emailPattern)" data-cy="login-email-pattern-error">
+                Please enter a valid email address
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Password field -->
+        <mat-form-field class="auth-form-field" appearance="outline" subscriptSizing="dynamic" data-cy="login-password-field">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="password">
+
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')" data-cy="login-password-required-error">
+                Password is required
+            </mat-error>
+        </mat-form-field>
+
+        <p class="auth-form-error-message" *ngIf="userOrEmailNotCorrect" data-cy="login-invalid-credentials-error">
+            Invalid username or password
+        </p>
+
+        <p class="auth-form-error-message" *ngIf="fatalLoginError">
+            An error occurred while trying to sign in. Please try again later.
+        </p>
+
+        <a mat-button routerLink="../resetpassword">Forgot password?</a>
+
+        <button mat-flat-button id="auth-form-submit-button" type="submit" [disabled]="isLoginFormLoading" data-cy="login-submit-button">
+            Sign In
+        </button>
+    </form>
+
+    <hr class="auth-form-separator">
+
+    <p id="auth-form-footer">Don't have an account? <a routerLink="../register" data-cy="register-link">Create an account</a></p>
+</mh-auth-form>
